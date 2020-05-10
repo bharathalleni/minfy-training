@@ -166,3 +166,15 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9100']  
 ```
+Prometheus provides a basic web interface for monitoring the status of itself and its exporters, executing queries, and generating graphs. But, due to the interface’s simplicity, the Prometheus team  [recommends](https://prometheus.io/docs/visualization/browser/)  [installing and using Grafana](https://prometheus.io/docs/visualization/grafana/)  for anything more complicated than testing and debugging.
+
+In this tutorial, we’ll use the built-in web interface to ensure that Prometheus and Node Exporter are up and running, and we’ll also take a look at simple queries and graphs.
+
+To test, point your web browser to  `http://your_server_ip:9090`
+Once logged in, you’ll see the  **Expression Browser**, where you can execute and visualize custom queries.
+
+![Prometheus Dashboard Welcome](http://assets.digitalocean.com/articles/install-prometheus-on-ubuntu-16-04/Prometheus-Dashboard-Welcome.png)
+
+Before executing any expressions, verify the status of both Prometheus and Node Explorer by clicking first on the  **Status**  menu at the top of the screen and then on the  **Targets**  menu option. As we have configured Prometheus to scrape both itself and Node Exporter, you should see both targets listed in the  `UP`  state.
+
+![Prometheus Dashboard Targets](http://assets.digitalocean.com/articles/install-prometheus-on-ubuntu-16-04/Prometheus-Dashboard-Targets.png)
