@@ -1,13 +1,3 @@
-# Minfy-Prometheus and Grafana training
-This tutorial walks you through setting up Prometheus, Node exporters and Grafana dashboards.
-## Target Audience
-The target audience for this tutorial are someone planning to support a Prometheus/Grafana deployment and 
-
- - Cloud Engineers
- - Developers
- - System Admins
- - DevOps Engineers
-
 ## Installing Prometheus
 
 ### Installation on Ubuntu 16.04/18.04 :
@@ -42,7 +32,13 @@ You can also check the status of Prometheus service with the following command:
 ```
 sudo systemctl status prometheus
 ```
-## Installing Node Exporter
+### Installation on Docker:
+
+ - [Installing Prometheus on Docker](https://github.com/bharathalleni/minfy-training/blob/master/docs/prometheus-on-docker.md)
+
+## Installing Node Exporter (Optional)
+
+> This section of the tutorial is only for older versions of Ubuntu. Please skip this step if you are on Ubuntu 16.04 or later.
 
 To expand Prometheus beyond metrics about itself only, we’ll install an additional exporter called Node Exporter. Node Exporter provides detailed information about the system, including CPU, disk, and memory usage.
 
