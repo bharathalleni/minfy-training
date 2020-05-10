@@ -9,9 +9,9 @@ The target audience for this tutorial are someone planning to support a Promethe
  - DevOps Engineers
 
 ## Prometheus Installation and Setup
-**Installation on Ubuntu 16.04/18.04 :**
+###Installation on Ubuntu 16.04/18.04 :
 
-**Requirements** :
+Requirements :
 -   A server running Ubuntu 18.04 LTS.
 -   A non-root user with sudo privileges.
 By default, Prometheus is not available in the Ubuntu 18.04 LTS (Bionic Beaver) default repository. So you will need to add the repository for that.
