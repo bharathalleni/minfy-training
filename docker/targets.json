@@ -1,0 +1,27 @@
+[
+  {
+    "labels": {
+      "job": "cadvisor"
+    },
+    "targets": [
+      "cadvisor:8080"
+    ]
+  },
+  {
+    "labels": {
+      "job": "node-exporter"
+    },
+    "targets": [
+      "node-exporter:9100"
+    ]
+  },
+  {
+    "labels": {
+      "job": "flask-metrics"
+    },
+    "targets": [
+      "flask-prometheus--iambharath.repl.co"
+    ]
+  }
+
+]
