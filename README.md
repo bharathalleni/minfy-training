@@ -10,9 +10,7 @@ The target audience for this tutorial are someone planning to support a Promethe
 
 ## Prometheus Installation and Setup
 
-Heading
-
-Installation on Ubuntu 16.04/18.04 :
+### Installation on Ubuntu 16.04/18.04 :
 
 Requirements :
 -   A server running Ubuntu 18.04 LTS.
@@ -43,4 +41,41 @@ You can also check the status of Prometheus service with the following command:
 
 ```
 sudo systemctl status prometheus
+```
+### Configuring Prometheus to Scrape Node Exporter
+Because Prometheus only scrapes exporters which are defined in the  `scrape_configs`  portion of its configuration file, we’ll need to add an entry for Node Exporter, just like we did for Prometheus itself.
+
+Open the configuration file.
+```
+sudo nano /etc/prometheus/prometheus.yml
+```
+
+At the end of the  `scrape_configs`  block, add a new entry called  `node_exporter`.
+
+> Prometheus config file  - /etc/prometheus/prometheus.yml
+
+```
+ - job_name: 'node_exporter'
+   scrape_interval: 5s
+   static_configs:
+     - targets: ['localhost:9100']  
+```
+
+Because this exporter is also running on the same server as Prometheus itself, we can use localhost instead of an IP address again along with Node Exporter’s default port,  `9100`.
+
+Your whole configuration file should look like this:
+
+```
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'node_exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9100']  
 ```
