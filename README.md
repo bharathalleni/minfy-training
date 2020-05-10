@@ -25,13 +25,15 @@ wget https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg | s
 Next, update the repository and install Prometheus with the following command:
 
 ```
-sudo apt-get update -ysudo apt-get install prometheus prometheus-node-exporter prometheus-pushgateway prometheus-alertmanager-y
+sudo apt-get update -y
+sudo apt-get install prometheus prometheus-node-exporter prometheus-pushgateway prometheus-alertmanager -y
 ```
 
 Once the installation is completed, start Prometheus service and enable it to start on boot time with the following command:
 
 ```
-sudo systemctl start prometheussudo systemctl enable prometheus
+sudo systemctl start prometheus
+sudo systemctl enable prometheus
 ```
 
 You can also check the status of Prometheus service with the following command:
