@@ -8,7 +8,7 @@ The target audience for this tutorial are someone planning to support a Promethe
  - System Admins
  - DevOps Engineers
 
-## Prometheus Installation and Setup
+## Installing Prometheus
 
 ### Installation on Ubuntu 16.04/18.04 :
 
@@ -42,6 +42,93 @@ You can also check the status of Prometheus service with the following command:
 ```
 sudo systemctl status prometheus
 ```
+## Installing Node Exporter
+
+To expand Prometheus beyond metrics about itself only, we’ll install an additional exporter called Node Exporter. Node Exporter provides detailed information about the system, including CPU, disk, and memory usage.
+
+First, download the current stable version of Node Exporter into your home directory. You can find the latest binaries along with their checksums on  [Prometheus’ download page](https://prometheus.io/download/).
+
+```
+cd ~
+curl -LO https://github.com/prometheus/node_exporter/releases/download/v0.15.1/node_exporter-0.15.1.linux-amd64.tar.gz
+```
+Now, unpack the downloaded archive.
+
+```
+tar xvf node_exporter-0.15.1.linux-amd64.tar.gz
+```
+
+This will create a directory called  `node_exporter-0.15.1.linux-amd64`  containing a binary file named  `node_exporter`, a license, and a notice.
+
+Copy the binary to the  `/usr/local/bin`  directory and set the user and group ownership to the  **node_exporter**  user that you created in Step 1.
+
+```
+sudo cp node_exporter-0.15.1.linux-amd64/node_exporter /usr/local/bin
+```
+
+Lastly, remove the leftover files from your home directory as they are no longer needed.
+
+```
+rm -rf node_exporter-0.15.1.linux-amd64.tar.gz  node_exporter-0.15.1.linux-amd64
+```
+The steps for running Node Exporter are similar to those for running Prometheus itself. Start by creating the Systemd service file for Node Exporter.
+```
+sudo nano /etc/systemd/system/node_exporter.service
+```
+
+This service file tells your system to run Node Exporter as the  **node_exporter**  user with the default set of collectors enabled.
+
+Copy the following content into the service file:
+
+> Node Exporter service file - /etc/systemd/system/node_exporter.service
+
+```
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+
+[Install]
+WantedBy=multi-user.target
+
+```
+Save the file and close your text editor.
+
+Finally, reload  `systemd`  to use the newly created service.
+
+```
+sudo systemctl daemon-reload
+```
+
+You can now run Node Exporter using the following command:
+
+```
+sudo systemctl start node_exporter
+```
+
+Verify that Node Exporter’s running correctly with the  `status`  command.
+
+```
+sudo systemctl status node_exporter
+```
+
+Like before, this output tells you Node Exporter’s status, main process identifier (PID), memory usage, and more.
+
+If the service’s status isn’t  `active`, follow the on-screen messages and re-trace the preceding steps to resolve the problem before continuing.
+Lastly, enable Node Exporter to start on boot.
+
+```
+sudo systemctl enable node_exporter
+```
+
+With Node Exporter fully configured and running as expected, we’ll tell Prometheus to start scraping the new metrics.
+
 ### Configuring Prometheus to Scrape Node Exporter
 Because Prometheus only scrapes exporters which are defined in the  `scrape_configs`  portion of its configuration file, we’ll need to add an entry for Node Exporter, just like we did for Prometheus itself.
 
