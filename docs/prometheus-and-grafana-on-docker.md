@@ -8,7 +8,13 @@ Requirements :
 -   A non-root user with sudo privileges.
 -   TCP ports 9090 and 3000 opened
 
-This is the simplest way of getting Prometheus and Grafana up and running. To install the stack using Docker compose 
+This is the simplest way of getting Prometheus and Grafana up and running. To install the entire monitoring stack using Docker compose 
+
+```
+git clone https://github.com/bharathalleni/minfy-training.git
+cd minfy-training/docker/
+docker-compose up -d
+```
 
 
 
